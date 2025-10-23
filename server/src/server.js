@@ -12,16 +12,10 @@ dotenv.config();
 
 const app = express();
 
-const allowedOrigins = (process.env.CLIENT_ORIGINS || process.env.CLIENT_ORIGIN || '*')
-  .split(',')
-  .map((o) => o.trim());
+
 app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes('*') || allowedOrigins.includes(origin)) {
-      return callback(null, true);
-    }
-    return callback(new Error('Not allowed by CORS'));
-  },
+  origin: 'https://team-q-a.onrender.com', 
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true
 }));
 app.use(express.json());
