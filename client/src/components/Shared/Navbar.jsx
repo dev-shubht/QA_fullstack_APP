@@ -1,4 +1,5 @@
 import { useAuth } from '../../context/AuthContext'
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const { user, logout, isManager } = useAuth()
@@ -10,17 +11,22 @@ const Navbar = () => {
           <div className="flex items-center space-x-8">
             <h1 className="text-xl font-bold text-gray-800">Team Q&A</h1>
             <div className="flex space-x-4">
-              <a href="/dashboard" className="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-md">
+
+
+              <Link to="/dashboard" className="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-md">
                 Dashboard
-              </a>
-              <a href="/questions" className="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-md">
+              </Link>
+
+              <Link to="/questions" className="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-md">
                 Questions
-              </a>
+              </Link>
+
               {isManager() && (
-                <a href="/insights" className="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-md">
+                <Link to="/insights" className="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-md">
                   Insights
-                </a>
+                </Link>
               )}
+
             </div>
           </div>
 
@@ -39,12 +45,16 @@ const Navbar = () => {
               </>
             ) : (
               <div className="space-x-2">
-                <a href="/login" className="text-gray-600 hover:text-blue-600 px-3 py-2">
+                <Link to="/login" className="text-gray-600 hover:text-blue-600 px-3 py-2">
                   Login
-                </a>
-                <a href="/register" className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md">
+                </Link>
+
+                <Link
+                  to="/register"
+                  className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md"
+                >
                   Register
-                </a>
+                </Link>
               </div>
             )}
           </div>

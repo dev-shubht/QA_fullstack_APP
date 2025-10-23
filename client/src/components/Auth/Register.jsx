@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useAuth } from '../../context/AuthContext'
 import { useApi } from '../../hooks/useApi'
 import { API_ENDPOINTS, ROLES } from '../../utils/constants'
+import { Link } from "react-router-dom";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -24,30 +25,30 @@ const Register = () => {
     e.preventDefault()
     try {
       console.log('Attempting registration...')
-      
+
       const data = await request(API_ENDPOINTS.AUTH.REGISTER, {
         method: 'POST',
         body: formData
       })
-      
+
       console.log('Registration successful:', data)
-      
-     
+
+
       const token = data.token
       const user = data.user
-      
+
       if (!token || !user) {
         throw new Error('Invalid response from server')
       }
-      
-      
+
+
       const normalizedUser = {
         _id: user.id,
         name: user.name,
         email: user.email,
         role: user.role
       }
-      
+
       login(token, normalizedUser)
       window.location.href = '/dashboard'
     } catch (err) {
@@ -72,7 +73,7 @@ const Register = () => {
               </div>
             </div>
           )}
-          
+
           <div className="space-y-4">
             <div>
               <input
@@ -132,9 +133,12 @@ const Register = () => {
           </div>
 
           <div className="text-center">
-            <a href="/login" className="text-blue-600 hover:text-blue-500">
+
+
+            <Link to="/login" className="text-blue-600 hover:text-blue-500">
               Already have an account? Sign in
-            </a>
+            </Link>
+
           </div>
         </form>
       </div>

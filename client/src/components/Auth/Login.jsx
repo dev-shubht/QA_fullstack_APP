@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useAuth } from '../../context/AuthContext'
 import { useApi } from '../../hooks/useApi'
 import { API_ENDPOINTS } from '../../utils/constants'
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -25,23 +26,23 @@ const Login = () => {
         method: 'POST',
         body: formData
       })
-      
-     
+
+
       const token = data.token
       const user = data.user
-      
+
       if (!token || !user) {
         throw new Error('Invalid response from server')
       }
-      
-      
+
+
       const normalizedUser = {
         _id: user.id,
         name: user.name,
         email: user.email,
         role: user.role
       }
-      
+
       login(token, normalizedUser)
       window.location.href = '/dashboard'
     } catch (err) {
@@ -63,7 +64,7 @@ const Login = () => {
               {error}
             </div>
           )}
-          
+
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
               <input
@@ -100,9 +101,12 @@ const Login = () => {
           </div>
 
           <div className="text-center">
-            <a href="/register" className="text-blue-600 hover:text-blue-500">
+
+
+            <Link to="/register" className="text-blue-600 hover:text-blue-500">
               Don't have an account? Sign up
-            </a>
+            </Link>
+
           </div>
         </form>
       </div>
