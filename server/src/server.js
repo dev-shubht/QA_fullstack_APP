@@ -14,7 +14,7 @@ const app = express();
 
 
 app.use(cors({
-  origin: 'https://team-q-a.onrender.com', 
+  origin: 'https://qa-fullstack-app.onrender.com', 
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true
 }));
