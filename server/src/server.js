@@ -12,12 +12,20 @@ dotenv.config();
 
 const app = express();
 
-
+// FIXED CORS CONFIGURATION
 app.use(cors({
-  origin: 'https://qa-fullstack-app.onrender.com', 
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  origin: [
+    'https://qa-fullstack-app.onrender.com',
+    'http://localhost:3000' // Add localhost for development
+  ], 
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // ADD OPTIONS
+  allowedHeaders: ['Content-Type', 'Authorization', 'Cookie'], // ADD Headers
   credentials: true
 }));
+
+// Alternative: SIMPLE CORS (temporary fix)
+// app.use(cors());
+
 app.use(express.json());
 app.use(morgan('dev'));
 
@@ -31,7 +39,6 @@ app.use('/answers', answerRoutes);
 app.use('/insights', insightRoutes);
 
 const PORT = process.env.PORT || 5000;
-
 
 process.on('uncaughtException', (err) => {
   console.error('Uncaught Exception:', err);
@@ -48,11 +55,13 @@ connectToDatabase()
     app.listen(PORT, () => {
       console.log(`Server listening on port ${PORT}`);
       console.log(`Using ${global.useFileDb ? 'file' : 'MongoDB'} database`);
+      console.log('CORS configured for:', [
+        'https://qa-fullstack-app.onrender.com',
+        'http://localhost:3000'
+      ]);
     });
   })
   .catch((err) => {
     console.error('Failed to connect to database', err);
     process.exit(1);
   });
-
-
